@@ -1,0 +1,59 @@
+{
+  "name": "@scharf-black/tolaria-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for taxonomy-aware read/write access to Tolaria note vaults backed by local git checkouts",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "tolaria-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "examples/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "test": "tsc && tsc -p tsconfig.test.json && node --test dist-test/*.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "notes",
+    "obsidian",
+    "tolaria",
+    "knowledge-management",
+    "anthropic",
+    "claude"
+  ],
+  "author": "Dave Scharf <dave@scharf.app>",
+  "license": "MIT",
+  "homepage": "https://github.com/scharf-black/tolaria-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scharf-black/tolaria-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scharf-black/tolaria-mcp/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
