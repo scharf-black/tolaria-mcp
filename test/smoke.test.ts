@@ -85,6 +85,29 @@ test("serializeNote round-trips YAML dates correctly", async () => {
   }
 });
 
+test("serializeNote round-trip is byte-stable (no trailing newline accumulation)", async () => {
+  const vault = await import("../dist/services/vault.js");
+  const matter = (await import("gray-matter")).default;
+
+  // Take a note like one tolaria writes
+  const initial = vault.serializeNote(
+    { type: "Reference", belongs_to: ["Homelab"] },
+    "# Test\n\nbody content\n"
+  );
+  // Read it back the same way readNoteFile does, then re-serialize. Round-trip
+  // must be byte-identical — otherwise every no-op update_note adds noise to git.
+  const parsed = matter(initial);
+  const body = parsed.content.replace(/^\s+/, "");
+  const reSerialized = vault.serializeNote(parsed.data, body);
+  assert.equal(reSerialized, initial, "round-trip must be byte-stable");
+
+  // And one more round to be really sure
+  const parsed2 = matter(reSerialized);
+  const body2 = parsed2.content.replace(/^\s+/, "");
+  const reSerialized2 = vault.serializeNote(parsed2.data, body2);
+  assert.equal(reSerialized2, initial, "second round-trip must also be byte-stable");
+});
+
 test("serializeNote preserves wikilink relationships", async () => {
   const vault = await import("../dist/services/vault.js");
   const serialized = vault.serializeNote(

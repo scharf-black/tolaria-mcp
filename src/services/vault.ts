@@ -344,7 +344,11 @@ export function serializeNote(fm: NoteFrontmatter, body: string): string {
   const wikilinkText = wikilinkParts.join("\n");
 
   const fmText = [yamlText, wikilinkText].filter((s) => s.length > 0).join("\n");
-  const trimmedBody = body.replace(/^\s+/, "");
+  // Trim BOTH leading and trailing whitespace from the body, then add
+  // exactly one trailing newline. Without trimming the trailing whitespace,
+  // every read-modify-write cycle appends another newline, so no-op updates
+  // would never actually be no-ops.
+  const trimmedBody = body.replace(/^\s+/, "").replace(/\s+$/, "");
   return `---\n${fmText}\n---\n\n${trimmedBody ? trimmedBody + "\n" : ""}`;
 }
 
