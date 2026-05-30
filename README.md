@@ -201,7 +201,7 @@ Obsidian's advanced link syntaxes (`[[Foo|Display]]`, `[[Foo#Section]]`) get nor
 
 - [Anthropic](https://anthropic.com) for the Model Context Protocol spec and the SDK.
 - [Obsidian](https://obsidian.md) for the wikilink + frontmatter conventions this server is compatible with.
-- [Tolaria](https://tolaria.org) for the underlying note-system philosophy.
+- [Tolaria](https://tolaria.md) for the underlying note-system philosophy.
 
 ## License
 
