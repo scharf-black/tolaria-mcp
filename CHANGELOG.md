@@ -26,5 +26,8 @@ First public release.
 - `TOLARIA_DISABLE_GIT_SYNC` env flag for tests and offline development.
 - Startup config assertion (`assertVaultsConfigured`) — refuses to start with no vaults configured.
 
+### Fixed
+- CI: restored `package-lock.json` and switched the workflow back to `npm ci` so dependency installs are reproducible across CI runs and contributor environments. The earlier `npm install` workaround (committed without a lockfile) caused `actions/setup-node`'s `cache: 'npm'` to fail at the Setup Node step before any code could run.
+
 ### Security
 - Path traversal: every filesystem op now resolves through `safeJoin(root, relPath)` which throws on absolute paths or paths that escape the vault root.
